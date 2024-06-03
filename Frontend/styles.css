@@ -1,0 +1,461 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding-top: 60px;
+    width: 98%;
+}
+.container {
+    display: flex;
+    align-items: center; /* Выравнивание по вертикали */
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 4px 0;
+    z-index: 10000;
+}
+.logo {
+    flex-grow: 1; /* Растягиваем логотип на всю оставшуюся ширину */
+    font-size: 24px;
+}
+nav {
+    margin-left: auto; /* Перемещаем навигацию вправо */
+}
+nav ul {
+    display: flex; /* Делаем список элементов навигации блочным */
+    justify-content: center; /* Выравниваем элементы по центру */
+    list-style-type: none;
+    padding: 0;
+}
+nav ul li {
+    margin: 0 10px; /* Отступ между элементами навигации */
+}
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+.sidebar {
+    float: left;
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+.content {
+    margin-left: 240px;
+    padding: 20px;
+}
+
+/*Кнопка меню*/
+.menu-icon {
+    width: 30px;
+    vertical-align: middle;
+}
+.menu-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 40px;
+    margin-right: 20px;
+}
+.menu-overlay {
+    position: fixed;
+    top: 60px; /* Высота вашего заголовка */
+    left: -200px;
+    width: 200px;
+    height: calc(100% - 60px); /* Отнимаем высоту заголовка от высоты экрана */
+    background-color: #f4f4f4;
+    z-index: 9999; /* На один уровень ниже, чем у заголовка */
+    transition: left 0.3s ease;
+}
+.menu-content {
+    padding: 20px;
+}
+.menu-item {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.menu-item:hover {
+    background-color: #2f4f4f;
+}
+
+/*Кнопка аккаунт*/
+.account-icon {
+    width: 50px;
+    vertical-align: middle;
+}
+.account-button {
+    font-size: 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 40px;
+}
+.account-panel {
+    position: absolute;
+    top: 64px;
+    right: 20px;
+    border-radius: 10px;
+    display: none;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 99999;
+}
+.login-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.login-button:hover {
+    background-color: #2f4f4f;
+}
+
+
+
+/*Окно регистрации*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; /* Настройте размер модального окна по вашему усмотрению */
+    max-width: 100%; /* Максимальная ширина, чтобы не выходить за пределы экрана */
+    background-color: rgba(0, 0, 0, 0.4);
+    overflow: auto;
+}
+.modal-content {
+    margin: 15% auto;
+    width: 50%;
+}
+.close {
+    color: #000000;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: #555;
+    text-decoration: none;
+    cursor: pointer;
+}
+.h1-Sign {
+    font-weight: bold;
+    margin: 0;
+}
+.span-Sign {
+    font-size: 12px;
+}
+.a-Sign {
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+}
+.button-Sign {
+    border-radius: 20px;
+    border: 1px solid #333;
+    background-color: #333;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+.button-Sign:active {
+    transform: scale(0.95);
+}
+.button-Sign:focus {
+    outline: none;
+}
+.button-Sign.ghost {
+    background-color: transparent;
+    border-color: #FFFFFF;
+}
+.form-Sign {
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+}
+.input-Sign {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+}
+.container-Sign {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+    0 10px 10px rgba(0,0,0,0.22);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+}
+.form-container-Sign {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+.sign-in-container-Sign {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+.container-Sign.right-panel-active .sign-in-container-Sign {
+    transform: translateX(100%);
+}
+.sign-up-container-Sign {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+.container-Sign.right-panel-active .sign-up-container-Sign {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+}
+@keyframes show {
+    0%, 49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    50%, 100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+.overlay-container-Sign {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+}
+.container-Sign.right-panel-active .overlay-container-Sign{
+    transform: translateX(-100%);
+}
+.overlay {
+    background: #333;
+    background: -webkit-linear-gradient(to right, #333, #666);
+    background: linear-gradient(to right, #333, #666);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+.container-Sign.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+.overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+.overlay-left {
+    left: -30px;
+    transform: translateX(-20%);
+}
+.container-Sign.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+.overlay-right {
+    left: 350px;
+    transform: translateX(0);
+}
+.container-Sign.right-panel-active .overlay-right {
+    transform: translateX(20%);
+}
+.social-container-Sign {
+    margin: 20px 0;
+}
+.social-container-Sign a {
+    border: 1px solid #FFFFFF;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+}
+
+
+#doctorMain-list, #visit-patient-list {
+    display: inline-block;
+}
+#adminWindow, #doctorMain, #maimMain, #userAccount, #doctorMainWindow, #userVisit {
+    text-align: center;
+}
+#buttons-container, #buttons-container-account, #button-doctor-container {
+    padding: 7px;
+    top: 70px;
+    margin-bottom: 10px;
+    width: 100%;
+    background-color: white;
+    z-index: 999;
+}
+.menu-admin{
+    padding: 10px;
+    margin: 0 6px;
+    border-radius: 10px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+}
+.content-admin {
+    display: none;
+}
+.menu-spec{
+    padding: 3px;
+    margin: 0 5px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+}
+
+/*Окно добавления доктора*/
+#doctorForm, #patientForm, #doctorFormChange, #specFormChange, #personalForm, #visitForm, #patientFormVisit, #visitFormInfo {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+#doctorForm label, #patientForm label, #doctorFormChange label, #specFormChange label, #personalForm label,
+#visitForm label, #patientFormVisit label, #visitFormInfo label{
+    margin-bottom: 10px; /* Отступ между метками */
+}
+#doctorForm input[type="text"], #patientForm input[type="text"], #doctorFormChange input[type="text"],
+#specFormChange input[type="text"], #personalForm input[type="text"], #visitForm input[type="text"],
+#patientFormVisit input[type="text"], #visitFormInfo input[type="text"]{
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    width: 40%;
+}
+#doctorForm button, #patientForm button, #doctorFormChange button, #specFormChange button, #personalForm button,
+#visitForm button, #patientFormVisit button, #visitFormInfo button{
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+#doctorForm button:hover, #patientForm button:hover, #doctorFormChange button:hover, #specFormChange button:hover,
+#personalForm button:hover, #visitForm button:hover, #patientFormVisit button:hover, #visitFormInfo button:hover {
+    background-color: #666;
+}
+
+
+#userForm{
+    background-color: white;
+    padding: 20px;
+}
+
+
+.delete-button{
+    padding: 3px;
+    margin: 0 6px;
+    border-radius: 10px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+}
+.delete-button:hover {
+    background-color: #666;
+}
+#specializations-list, #regions-list, #user-full-list, #doctors-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#users-list li:hover {
+    cursor: pointer;
+}
+
+table {
+    border-collapse: collapse;
+    width: 40%;
+    max-width: 800px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #c0bfbf;
+}
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333333;
+    text-transform: uppercase;
+}
+tr:hover {
+    background-color: #cbb6b6;
+}
+
+.none{
+    display: none;
+}

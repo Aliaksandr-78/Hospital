@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="Main.js" defer></script>
+</head>
+<body>
+<header>
+    <div class="container">
+        <button class="menu-button" onclick="toggleMenu()"><img src="images/more3.png" alt="More" class="menu-icon" style="cursor: pointer"></button>
+        <div class="logo">Healthcare System</div>
+        <nav>
+            <ul>
+                <li><a onclick="openMain()">Главная</a></li>
+                <li><a onclick="doctorMain()">Доктора</a></li>
+                <li id="administrationButton" class="none"><a onclick="adminMain()">Администратор</a></li>
+                <li id="doctorButton" class="none"><a onclick="mainDoctor()">Панель доктора</a></li>
+            </ul>
+        </nav>
+        <button class="account-button" onclick="toggleAccountPanel()"><img src="images/account2.png" alt="Account" class="account-icon" style="cursor: pointer"></button>
+    </div>
+</header>
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-content">
+        <button class="menu-item" onclick="openVisitPatient()">Карточка</button>
+    </div>
+</div>
+<div id="account-panel" class="account-panel">
+    <button class="menu-item" id="loginButtonMain" onclick="openModal()">Войти</button>
+    <button class="menu-item" id="infoUser">Об аккаунте</button>
+    <button class="menu-item" id="logoutButton">Выйти</button>
+</div>
+
+<div id="adminWindow" class="none">
+    <div id="buttons-container">
+        <button class="menu-admin" id="doctor-Full">Список докторов</button>
+        <button class="menu-admin" id="users-Full">Список пользователей</button>
+        <button class="menu-admin" id="spec-Full">Список специальностей</button>
+        <button class="menu-admin" id="region-Full">Список участков</button>
+    </div>
+    <div id="doctors" class="content-admin">
+        <button class="menu-admin" id="createDoc" onclick="openModalDoc()">Добавить доктора</button>
+        <h1>Список докторов</h1>
+        <ul id="doctors-list"></ul>
+    </div>
+    <div id="users" class="content-admin">
+        <h1>Список пользователей</h1>
+        <ul id="user-full-list"></ul>
+    </div>
+    <div id="specializations" class="content-admin">
+        <form id="specializationForm">
+            <input id="specializationInput" name="specialized" class="input-Sign" type="text" placeholder="Специальность">
+            <button id="specializedButton" class="menu-admin">Добавить</button>
+        </form>
+        <h1>Список специализаций</h1>
+        <ul id="specializations-list"></ul>
+    </div>
+    <div id="regions" class="content-admin">
+        <form id="regionForm">
+            <input id="regionNumberInput" name="regioned" class="input-Sign" type="text" placeholder="Номер регион">
+            <input id="regionInput" name="regioned" class="input-Sign" type="text" placeholder="Адресс регион">
+            <button id="regionedButton" class="menu-admin">Добавить</button>
+        </form>
+        <h1>Список участков</h1>
+        <ul id="regions-list"></ul>
+    </div>
+</div>
+
+<div id="doctorMainWindow" class="none">
+    <div id="button-doctor-container">
+        <button class="menu-admin" id="createVisitToDoctor" onclick="openModalVisit()">Создать визит</button>
+    </div>
+</div>
+
+<div id="doctorMain" class="none">
+    <div>
+        <h1>Доктора пиликлиники</h1>
+        <ul id="doctorMain-list"></ul>
+    </div>
+</div>
+
+<div id="maimMain">
+    <h1>Информация о пиликлинике</h1>
+</div>
+
+<div id="userVisit" class="none">
+    <div>
+        <h1>Ваш спосок визитов</h1>
+        <ul id="visit-patient-list"></ul>
+    </div>
+</div>
+<!--Окно для создания доктора-->
+<div id="doctorCreate" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModalDoc()">&times;</span>
+        <h2>Добавление доктора</h2>
+        <form id="doctorForm">
+            <input type="text" id="doctorName" placeholder="Имя доктора:">
+            <input type="text" id="doctorSurname" placeholder="Фамилия доктора:"><br><br>
+            <input type="text" id="officeDoctor" placeholder="Офисс">
+            <label>Пользователь: <button type="button" onclick="openUserModal()">выбрать</button></label>
+            <span id="selectedUser"></span><input type="hidden" id="selectedUserId" name="selectedUserId"><br><br>
+            <label for="doctorSpecialization">Специальность:</label>
+            <select id="doctorSpecialization" name="doctorSpecialization"></select>
+            <label for="regionDoctor">Регион: </label>
+            <select id="regionDoctor" name="regionDoctor"></select><br><br>
+            <button type="button" onclick="addDoctor()">Добавить</button>
+        </form>
+    </div>
+</div>
+<div id="patientCreate" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModalPatient()">&times;</span>
+        <h1>Регистрация пациента</h1>
+        <form id="patientForm">
+            <input type="text" id="patientName" placeholder="Имя:">
+            <input type="text" id="patientSurname" placeholder="Фамилия:"><br><br>
+            <label for="gender">Пол:</label>
+            <select id="gender" name="gender"><option value="мужской">Мужской</option><option value="женский">Женский</option></select>
+            <label for="birthData">Дата рождения:</label>
+            <input type="date" id="birthData" name="birthData"><br><br>
+            <input type="text" id="addressPatient" placeholder="Адресс проживания:">
+            <label>Персональные данные: <button type="button" onclick="openPersModal()">указать</button></label><br><br>
+            <label for="regionUser">Регион:</label>
+            <select id="regionUser" name="regionUser"></select><br><br>
+            <button type="button" onclick="addPatient()">Стать пациентом</button>
+        </form>
+    </div>
+</div>
+<div id="visitCreate" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModalVisit()">&times;</span>
+        <h1>Создание визита</h1>
+        <form id="visitForm">
+            <label>Пациент: <button type="button" onclick="openPatientVisitModal()">выбрать</button></label>
+            <span id="selectedPatientVisit"></span><input type="hidden" id="selectedPatientId" name="selectedPatientId"><br><br>
+            <label for="noteVisit">Записи визита:</label><br>
+            <textarea id="noteVisit" name="noteVisit" rows="10" cols="95"></textarea><br><br>
+            <label for="priceVisit">Цена: </label>
+            <input type="number" id="priceVisit" name="priceVisit" step="1.00" min="0" placeholder="0.00"><br><br>
+            <label>Доктор: </label><span id="selectedDoctorVisit"></span><input type="hidden" id="selectedDoctorId" name="selectedDoctorId"><br><br>
+            <button type="button" onclick="createVisit()">Создать</button>
+        </form>
+    </div>
+</div>
+<!--Окно для выбора пользователя создания пользователя-->
+<div id="userModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeUserModal()">&times;</span>
+        <form id="userForm">
+            <h2>Выбор пользователя</h2>
+            <ul id="users-list"></ul>
+        </form>
+    </div>
+</div>
+<div id="patientModalVisit" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closePatientVisitModal()">&times;</span>
+        <form id="patientFormVisit">
+            <h2>Выберите пациента</h2>
+            <ul id="patient-list-visit"></ul>
+        </form>
+    </div>
+</div>
+<div id="personalDov" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeVisitInfo()">&times;</span>
+        <form id="personalForm">
+            <h2>Персональные данные</h2><br><br>
+            <input type="text" id="passportSeries" placeholder="Серия паспорта:">
+            <input type="text" id="passportNumber" placeholder="Номер паспорта:"><br><br>
+            <label for="passportExpiration">Дата выдачи паспорта:</label>
+            <input type="date" id="passportExpiration" name="passportExpiration">
+            <input type="text" id="identificationNumber" placeholder="Идентификционный номер:"><br><br>
+            <button type="button" onclick="closePersModal()">Сохранить</button>
+        </form>
+    </div>
+</div>
+<div id="visitInfo" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closePersModal()">&times;</span>
+        <form id="visitFormInfo">
+            <label>Визит №: </label><span id="numberVisitInfo"></span>
+            <label>Дата создания: </label><span id="dataVisitInfo"></span><br><br>
+            <label>Пациент: </label><span id="patientVisitInfo"></span><br><br>
+            <label>Записи визита:</label><br>
+            <span id="noteVisitInfo"></span><br><br>
+            <label>Доктор: </label><span id="doctorVisitInfo"></span><br><br>
+            <label>Стоимость: </label><span id="priceVisitInfo"></span>
+        </form>
+    </div>
+</div>
+
+<!--Окно для изменения доктора-->
+<div id="doctorChange" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeChangeDoc()">&times;</span>
+        <h2>Изменение доктора</h2>
+        <form id="doctorFormChange">
+            <span id="selectedUserChange"></span><input type="hidden" id="selectedUserIdChange" name="selectedUserIdChange"><br><br>
+            <input type="text" id="doctorNameChange" placeholder="Имя доктора:">
+            <input type="text" id="doctorSurnameChange" placeholder="Фамилия доктора:"><br><br>
+            <input type="text" id="officeDoctorChange" placeholder="Офисс"><br><br>
+            <label for="doctorSpecializationChange">Специальность:</label>
+            <select id="doctorSpecializationChange" name="doctorSpecializationChange"></select>
+            <label for="regionDoctorChange">Регион: </label>
+            <select id="regionDoctorChange" name="regionDoctorChange"></select><br><br>
+            <button type="button" onclick="changeDoctor()">Изменить</button>
+        </form>
+    </div>
+</div>
+<div id="specializationChange" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeChangeSpec()">&times;</span>
+        <h2>Изменение специальности</h2>
+        <form id="specFormChange">
+            <input type="hidden" id="specIdChange" name="specIdChange">
+            <input type="text" id="specChangeName" placeholder="Название специальности"><br><br>
+            <button type="button" onclick="changeSpecialization()">Изменить</button>
+        </form>
+    </div>
+</div>
+<!--Регистрация-->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="container-Sign" id="container-Sign">
+            <div class="form-container-Sign sign-up-container-Sign">
+                <form id="registrationForm" action="#" class="form-Sign">
+                    <h1 class="h1-Sign">Зарегистрироваться</h1>
+                    <span class="span-Sign">or use your email for registration</span>
+                    <input name="login" class="input-Sign" type="text" placeholder="Login" />
+                    <input name="password" class="input-Sign" type="password" placeholder="Пароль" />
+                    <input name="phoneNumber" class="input-Sign" type="text" placeholder="Номер телефона">
+                    <input name="email" class="input-Sign" type="email" placeholder="Email" />
+                    <button id="registerButton" class="button-Sign">Зарегестрироваться</button>
+                </form>
+            </div>
+            <div class="form-container-Sign sign-in-container-Sign">
+                <form id="loginForm" action="#" class="form-Sign">
+                    <h1 class="h1-Sign">Войти</h1>
+                    <input id="email" class="input-Sign" type="email" placeholder="Email" />
+                    <input id="password" class="input-Sign" type="password" placeholder="Пароль" />
+                    <button id="loginButton" class="button-Sign" >Войти</button>
+                </form>
+            </div>
+            <div class="overlay-container-Sign">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1 class="h1-Sign">Зарегистрируйся для удобства!</h1><br>
+                        <button class="button-Sign ghost" id="In">Войти</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1 class="h1-Sign">Добро пожаловать!</h1><br>
+                        <button class="button-Sign ghost" id="Up">Зарегистрироваться</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Информация пользователя его аккаунта-->
+<div id="userAccount">
+    <div id="buttons-container-account">
+        <button type="button" id="createPatient" onclick="openModalPatient()" class="menu-admin">Стать пациентом</button>
+    </div>
+</div>
+</body>
+</html>
